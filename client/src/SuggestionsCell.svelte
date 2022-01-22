@@ -11,9 +11,14 @@
 
 <div class="suggestionsCell">
     <div class="upperRow">
-        <div>{cellData.locationName}</div>
+        <div class="supermarketDescription">
+            <img src={"/supermarketFavicons/" + cellData.locationType + ".png"} class="supermarketFavicon"/>
+            <div>
+                {cellData.locationName}
+            </div>
+        </div>
         {#if cellData.isOnline}
-            <div>{cellData.deliveryDate}</div>
+            <div>Delivery: {cellData.deliveryDate}</div>
         {:else}
             <div>{cellData.distance} km</div>
         {/if}
@@ -30,6 +35,21 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 5px;
+    }
+
+    .supermarketFavicon {
+        margin-right: 5px;
+        border-radius: 5px;
+        overflow: hidden;
+        width: 20px;
+        height: 20px;
+    }
+
+    .supermarketDescription {
+        display: flex;
+        flex-direction: row;
+        /*justify-content: space-between;*/
+        align-items: center;
     }
 
     .suggestionsCell {
