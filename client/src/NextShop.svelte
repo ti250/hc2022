@@ -2,6 +2,7 @@
     import SuggestionsCell from "./SuggestionsCell.svelte";
     import { slide, scale } from 'svelte/transition';
     import { push } from 'svelte-spa-router';
+    import { suggestions, items } from './store';
 
     let isExpanded = false;
 
@@ -9,48 +10,27 @@
         isExpanded = !isExpanded;
     }
 
-    let suggestions = [
-        {
-            locationName: "Sainsbury's Local",
-            locationType: "sains",
-            estimatedPrice: 16.06,
-            distance: 0.50,
-            isOnline: false,
-        },
-        {
-            locationName: "Ocado",
-            locationType: "ocado",
-            estimatedPrice: 18.90,
-            deliveryDate: "23/Jan/2022",
-            isOnline: true,
-        },
-        {
-            locationName: "Tesco",
-            locationType: "tesco",
-            estimatedPrice: 17.06,
-            distance: 1.0,
-            isOnline: false,
-        },
-    ]
+    $: topSuggestion = ($suggestions)[0];
+    console.log($suggestions[0]);
 
-    $: topSuggestion = suggestions[0];
-
-    let items = [
-        {name: "Apples", quantity: 2}
-    ]
+    // let items = [
+    //     {name: "Apples", quantity: 2}
+    // ]
 
     function changeForKey(key, change)
     {
         function changeForKeyInternal()
         {
-            let item = items.find((element) => element.name == key);
+            let localItems = $items
+            let item = localItems.find((element) => element.name == key);
             item.quantity += change;
             if (item.quantity <= 0)
             {
-                const index = items.indexOf(item);
-                items.splice(index, 1);
+                const index = localItems.indexOf(item);
+                localItems.splice(index, 1);
             }
-            items = items;
+            items.set(localItems);
+            localStorage.setItem("items", JSON.stringify($items));
             onItemsChange();
         }
         return changeForKeyInternal;
@@ -66,7 +46,10 @@
 
     function addItem() {
         console.log("addItem Called");
-        items.push({name: nextItemName, quantity: 1});
+        let localItems = $items;
+        localItems.push({name: nextItemName, quantity: 1});
+        items.set(localItems);
+        localStorage.setItem("items", JSON.stringify($items));
         onItemsChange();
         nextItemName = "";
     }
@@ -74,7 +57,7 @@
     async function onItemsChange() {
         let url = "./api/supermarket_recommendations";
         let requestBody = {
-            quantities: items,
+            quantities: $items,
             location: {
                 latitude: 52.20483,
                 longitude: 0.11972,
@@ -84,7 +67,8 @@
         const res = await fetch(url, requestParameters);
         const newData = await res.json();
         console.log(newData);
-        suggestions = newData.recommendations;
+        suggestions.set(newData.recommendations);
+        localStorage.setItem("suggestions", JSON.stringify($suggestions));
     }
 
     let nextItemName="";
@@ -106,7 +90,7 @@
 
     {#if isExpanded}
         <div transition:slide>
-            {#each suggestions.slice(1) as suggestion}
+            {#each ($suggestions).slice(1) as suggestion}
                 <div class="suggestion">
                     <SuggestionsCell cellData={suggestion}/>
                 </div>
@@ -117,7 +101,7 @@
     <button on:click={toggle} id="expandButton" class="decorated"> <span> {isExpanded ? "▲ Show Less" : "▼ Show More"} </span> </button>
     <br/>
 
-    {#each items as item (item.name)}
+    {#each $items as item (item.name)}
         <div class="itemCell">
             <div>
                 ・{item.name}
