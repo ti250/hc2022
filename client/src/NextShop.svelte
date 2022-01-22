@@ -41,7 +41,6 @@
 
     function changeForKey(key, change)
     {
-        // TODO (ti250): if the quantity for the key goes to 0, then delete
         function changeForKeyInternal()
         {
             let item = items.find((element) => element.name == key);
@@ -74,10 +73,9 @@
 </script>
 
 <div id="content" in:scale>
-    <button onclick="window.history.back()">
+    <button onclick="window.history.back()" id="backbutton">
     &lt; Back
     </button>
-
     <h1>
         My Next Shop
     </h1>
@@ -122,13 +120,24 @@
 </button>
 
 <style>
+    h1 {
+        margin-top: 0px;
+        margin-bottom: 30px;
+    }
+
+    #backbutton {
+        padding: 0px;
+        margin-bottom: 10px;
+    }
+
     button {
         background: none;
         border: none;
+        margin: 0px;
     }
 
     #content {
-        padding: 10px;
+        padding: 20px;
     }
 
     #expandButton {
