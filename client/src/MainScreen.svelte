@@ -1,6 +1,7 @@
 <script>
     import Card from "./Card.svelte";
     import { push } from 'svelte-spa-router';
+    import { suggestions } from './store';
 
     let currentShop = {
         itemNames: ["Water", "Chicken"], // Names of things in the shopping list
@@ -8,6 +9,8 @@
         suggestedLocation: "Sainsbury's Local", // Location Name
         suggestedLocationType: "sains", // We can use this to maybe show a favicon later next to the location name
     }
+
+    $: topSuggestion = ($suggestions)[0]
 
     let pastShops = [
         {
@@ -43,15 +46,15 @@
                 </h2>
                 <div class="estimateCardContent">
                     <div class="supermarketDescription">
-                        <img src={"/supermarketFavicons/" + currentShop.suggestedLocationType + ".png"} class="supermarketFavicon"/>
+                        <img src={"/supermarketFavicons/" + topSuggestion.locationType + ".png"} class="supermarketFavicon"/>
                         <div>
-                            {currentShop.suggestedLocation}
+                            {topSuggestion.locationName}
                         </div>
                     </div>
                     <div id="costEstimate">
                         Estimate:
                         <br/>
-                        £{currentShop.estimatedCost}
+                        £{topSuggestion.estimatedPrice.toFixed(2)}
                     </div>
                 </div>
             </div>
