@@ -35,7 +35,7 @@
     $: topSuggestion = suggestions[0];
 
     let items = [
-        {name: "apple", quantity: 2}
+        {name: "Apples", quantity: 2}
     ]
 
     function changeForKey(key, change)
@@ -43,18 +43,32 @@
         // TODO (ti250): if the quantity for the key goes to 0, then delete
         function changeForKeyInternal()
         {
-            items[key] += change;
-            if (items[key] <= 0)
+            let item = items.find((element) => element.name == key);
+            item.quantity += change;
+            if (item.quantity <= 0)
             {
-                delete items[key]
+                const index = items.indexOf(item);
+                items.splice(index, 1);
             }
             items = items;
         }
         return changeForKeyInternal;
     }
+
+    function onItemNameKeyDown(event) {
+        if (event.keyCode == 13 && nextItemName !== "") {
+            addItem();
+        }
+    }
+
+    function addItem() {
+        console.log("addItem Called");
+    }
+
+    let nextItemName="";
 </script>
 
-<div id="content" in:scale out:slide>
+<div id="content" in:scale>
     <button onclick="window.history.back()">
     &lt; Back
     </button>
@@ -85,11 +99,17 @@
             <div>
                 ・{item.name}
             </div>
-            <div>
+            <div class="quantityManager">
                 {item.quantity}
+                <div class="quantityButtons">
+                    <button class="quantityButton" on:click={changeForKey(item.name, 1)}>▲</button>
+                    <button class="quantityButton" on:click={changeForKey(item.name, -1)}>▼</button>
+                </div>
             </div>
         </div>
     {/each}
+    <br/>
+    <input class="nextItemInput" placeholder="Add an Item" on:keydown={onItemNameKeyDown}>
 </div>
 
 <style>
@@ -110,6 +130,38 @@
 
     .suggestion {
         margin-bottom: 10px;
+    }
+
+    .nextItemInput {
+        width: 100%;
+    }
+
+    .itemCell {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .quantityManager {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .quantityButtons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-left: 10px;
+        /*width: 30px;*/
+    }
+
+    .quantityButton {
+        height: 20px;
+        padding: 0px;
+        margin: 0px;
     }
 
     /* headlines with lines from https://stackoverflow.com/questions/15557627/heading-with-horizontal-line-on-either-side */
