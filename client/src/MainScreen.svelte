@@ -1,6 +1,6 @@
 <script>
     import Card from "./Card.svelte";
-    import { push } from 'svelte-spa-router'
+    import { push } from 'svelte-spa-router';
 
     let currentShop = {
         itemNames: ["Water", "Chicken"], // Names of things in the shopping list
@@ -81,6 +81,9 @@
             </Card>
         </div>
     {/each}
+    <button class="floatingActionButton" on:click={() => push('/scanReceipt')}>
+        I did a shop!
+    </button>
 </div>
 
 <style>
@@ -112,6 +115,16 @@
         flex-direction: row;
         /*justify-content: space-between;*/
         align-items: center;
+    }
+
+    .floatingActionButton {
+        position: fixed;
+        bottom: 50px;
+        right: 20px;
+        z-index: 999;
+        background: lightgrey;
+        border-radius: 40px;
+        padding: 20px;
     }
 
     #costEstimate{

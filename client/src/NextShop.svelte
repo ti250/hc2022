@@ -1,6 +1,7 @@
 <script>
     import SuggestionsCell from "./SuggestionsCell.svelte";
     import { slide, scale } from 'svelte/transition';
+    import { push } from 'svelte-spa-router';
 
     let isExpanded = false;
 
@@ -116,6 +117,9 @@
     <br/>
     <input class="nextItemInput" placeholder="Add an Item" on:keydown={onItemNameKeyDown} bind:value={nextItemName}>
 </div>
+<button class="floatingActionButton" on:click={() => push('/scanReceipt')}>
+    I did a shop!
+</button>
 
 <style>
     button {
@@ -168,6 +172,16 @@
         height: 20px;
         padding: 0px;
         margin: 0px;
+    }
+
+    .floatingActionButton {
+        position: fixed;
+        bottom: 50px;
+        right: 20px;
+        z-index: 999;
+        background: lightgrey;
+        border-radius: 40px;
+        padding: 20px;
     }
 
     /* headlines with lines from https://stackoverflow.com/questions/15557627/heading-with-horizontal-line-on-either-side */
