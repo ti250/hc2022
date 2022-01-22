@@ -36,7 +36,7 @@
     {#if loading}
         <h1>Loading...</h1>
     {/if}
-    <video id="cameraView" bind:this={videoSource} />
+    <video id="cameraView" bind:this={videoSource} playsinline />
     <div id="cameraShutterWrapper">
         <button on:click={takePhoto} id="cameraShutter">Take Receipt</button>
     </div>
