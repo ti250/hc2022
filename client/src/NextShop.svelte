@@ -56,13 +56,17 @@
     }
 
     function onItemNameKeyDown(event) {
+        console.log("onItemKeyDown");
         if (event.keyCode == 13 && nextItemName !== "") {
+            console.log("onItemKeyDown");
             addItem();
         }
     }
 
     function addItem() {
         console.log("addItem Called");
+        items.push({name: nextItemName, quantity: 1});
+        nextItemName = "";
     }
 
     let nextItemName="";
@@ -93,8 +97,9 @@
     {/if}
 
     <button on:click={toggle} id="expandButton" class="decorated"> <span> {isExpanded ? "▲ Show Less" : "▼ Show More"} </span> </button>
+    <br/>
 
-    {#each items as item}
+    {#each items as item (item.name)}
         <div class="itemCell">
             <div>
                 ・{item.name}
@@ -109,7 +114,7 @@
         </div>
     {/each}
     <br/>
-    <input class="nextItemInput" placeholder="Add an Item" on:keydown={onItemNameKeyDown}>
+    <input class="nextItemInput" placeholder="Add an Item" on:keydown={onItemNameKeyDown} bind:value={nextItemName}>
 </div>
 
 <style>
@@ -141,6 +146,7 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        margin-bottom: 5px;
     }
 
     .quantityManager {
