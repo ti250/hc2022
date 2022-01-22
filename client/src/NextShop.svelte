@@ -51,6 +51,7 @@
                 items.splice(index, 1);
             }
             items = items;
+            onItemsChange();
         }
         return changeForKeyInternal;
     }
@@ -66,10 +67,28 @@
     function addItem() {
         console.log("addItem Called");
         items.push({name: nextItemName, quantity: 1});
+        onItemsChange();
         nextItemName = "";
     }
 
+    async function onItemsChange() {
+        let url = "./api/supermarket_recommendations";
+        let requestBody = {
+            quantities: items,
+            location: {
+                latitude: 52.20483,
+                longitude: 0.11972,
+            }
+        }
+        let requestParameters = {method: "POST", body: JSON.stringify(requestBody)};
+        const res = await fetch(url, requestParameters);
+        const newData = await res.json();
+        console.log(newData);
+        suggestions = newData.recommendations;
+    }
+
     let nextItemName="";
+    onItemsChange();
 </script>
 
 <div id="content" in:scale>

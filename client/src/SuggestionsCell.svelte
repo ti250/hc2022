@@ -20,11 +20,11 @@
         {#if cellData.isOnline}
             <div>Delivery: {cellData.deliveryDate}</div>
         {:else}
-            <div>{cellData.distance} km</div>
+            <div>{(cellData.distance / 1000).toFixed(1)} km</div>
         {/if}
     </div>
     <div style="text-align: right;">
-        Estimate: £ {cellData.estimatedPrice}
+        Estimate: £ {cellData.estimatedPrice.toFixed(2)}
     </div>
 </div>
 
