@@ -1,6 +1,6 @@
 <script>
     import SuggestionsCell from "./SuggestionsCell.svelte";
-    import { slide } from 'svelte/transition';
+    import { slide, scale } from 'svelte/transition';
 
     let isExpanded = false;
 
@@ -54,39 +54,50 @@
     }
 </script>
 
-<h1>
-    My Next Shop
-</h1>
+<div id="content" in:scale out:slide>
+    <button onclick="window.history.back()">
+    &lt; Back
+    </button>
 
-<!-- Default suggestion -->
-<div class="suggestion">
-    <SuggestionsCell cellData={topSuggestion}/>
+    <h1>
+        My Next Shop
+    </h1>
+
+    <!-- Default suggestion -->
+    <div class="suggestion">
+        <SuggestionsCell cellData={topSuggestion}/>
+    </div>
+
+    {#if isExpanded}
+        <div transition:slide>
+            {#each suggestions.slice(1) as suggestion}
+                <div class="suggestion">
+                    <SuggestionsCell cellData={suggestion}/>
+                </div>
+            {/each}
+        </div>
+    {/if}
+
+    <button on:click={toggle} id="expandButton" class="decorated"> <span> {isExpanded ? "▲ Show Less" : "▼ Show More"} </span> </button>
+
+    {#each items as item}
+        <div class="itemCell">
+            <div>
+                ・{item.name}
+            </div>
+            <div>
+                {item.quantity}
+            </div>
+        </div>
+    {/each}
 </div>
 
-{#if isExpanded}
-    <div transition:slide>
-        {#each suggestions.slice(1) as suggestion}
-            <div class="suggestion">
-                <SuggestionsCell cellData={suggestion}/>
-            </div>
-        {/each}
-    </div>
-{/if}
-
-<button on:click={toggle} id="expandButton" class="decorated"> <span> {isExpanded ? "▲ Show Less" : "▼ Show More"} </span> </button>
-
-{#each items as item}
-    <div class="itemCell">
-        <div>
-            ・{item.name}
-        </div>
-        <div>
-            {item.quantity}
-        </div>
-    </div>
-{/each}
-
 <style>
+    button {
+        background: none;
+        border: none;
+    }
+
     #content {
         padding: 10px;
     }
