@@ -16,6 +16,11 @@ def home(path):
     return send_from_directory('client/public', path)
 
 
+@app.route("/supermarketFavicons/<path:path>")
+def get_supermarket_favicon(path):
+    return send_from_directory('client/public/supermarketFavicons', path)
+
+
 @app.route("/rand")
 def hello():
     return str(random.randint(0, 100))

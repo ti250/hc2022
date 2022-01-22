@@ -42,8 +42,11 @@
                     My Next Shop
                 </h2>
                 <div class="estimateCardContent">
-                    <div>
-                        {currentShop.suggestedLocation}
+                    <div class="supermarketDescription">
+                        <img src={"/supermarketFavicons/" + currentShop.suggestedLocationType + ".png"} class="supermarketFavicon"/>
+                        <div>
+                            {currentShop.suggestedLocation}
+                        </div>
                     </div>
                     <div id="costEstimate">
                         Estimate:
@@ -62,8 +65,11 @@
             <Card backgroundColor="white">
                 <div class="cardContent">
                     <div class="estimateCardContent">
-                    <div>
-                        {pastShop.locationName}
+                        <div class="supermarketDescription">
+                        <img src={"/supermarketFavicons/" + pastShop.locationType + ".png"} class="supermarketFavicon"/>
+                        <div>
+                            {pastShop.locationName}
+                        </div>
                     </div>
                     <div id="costEstimate">
                         Cost:
@@ -86,10 +92,25 @@
         padding: 10px;
     }
 
+    .supermarketFavicon {
+        margin-right: 5px;
+        border-radius: 5px;
+        overflow: hidden;
+        width: 20px;
+        height: 20px;
+    }
+
     .estimateCardContent {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        align-items: center;
+    }
+
+    .supermarketDescription {
+        display: flex;
+        flex-direction: row;
+        /*justify-content: space-between;*/
         align-items: center;
     }
 
