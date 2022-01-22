@@ -74,7 +74,7 @@
                     <div id="costEstimate">
                         Cost:
                         <br/>
-                        £{pastShop.cost}
+                        £{pastShop.cost.toFixed(2)}
                     </div>
                 </div>
                 </div>
