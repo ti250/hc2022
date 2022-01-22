@@ -1,5 +1,6 @@
 <script>
     import Card from "./Card.svelte";
+    import { push } from 'svelte-spa-router'
 
     let currentShop = {
         itemNames: ["Water", "Chicken"], // Names of things in the shopping list
@@ -34,7 +35,7 @@
     </h1>
 
     <!-- Next Shop -->
-    <div class="listElement">
+    <div class="listElement" on:click={() => push('/nextShop')}>
         <Card isFloating="true">
             <div class="cardContent">
                 <h2>
@@ -102,6 +103,7 @@
 
     .listElement{
         margin-top: 10px;
+        cursor: pointer;
     }
 
     .pastShop{
