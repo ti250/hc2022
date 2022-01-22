@@ -23,6 +23,7 @@ COPY --from=build_client /client/public ./client/public
 COPY --from=build_server /app/venv ./venv
 ENV PATH="./venv/bin:$PATH"
 COPY server.py .
+COPY server/ server
 
 EXPOSE 80
 ENV FLASK_APP="server"
