@@ -16,17 +16,20 @@
         {
             locationName: "Sainsbury's Local",
             cost: 12.05,
-            locationType: "sains"
+            locationType: "sains",
+            date: "23/Jan"
         },
         {
             locationName: "Tesco Express",
             cost: 13.20,
-            locationType: "tesco"
+            locationType: "tesco",
+            date: "17/Jan"
         },
         {
             locationName: "Waitrose",
             cost: 15.20,
-            locationType: "waitrose"
+            locationType: "waitrose",
+            date: "12/Jan"
         },
     ]
 </script>
@@ -82,7 +85,7 @@
                         <div class="date hist">
                             Date:
                             <br/>
-                            2022/1/22
+                            {pastShop.date}
                         </div>
                         <div class="costEstimate hist">
                             Cost:
