@@ -44,37 +44,37 @@ def get_supermarket_recommendations():
 
 @app.route("/api/analyse_receipt", methods=["POST"])
 def analyse_receipt():
-    # global photo_index
-    # photo = request.files["photo"]
-    # photo_file_name = f"received_receipt{photo_index % 10}.jpg"
-    # photo_index += 1
-    # photo_path = os.path.join("receipts", photo_file_name)
-    # photo.save(photo_path)
+    global photo_index
+    photo = request.files["photo"]
+    photo_file_name = f"received_receipt{photo_index % 10}.jpg"
+    photo_index += 1
+    photo_path = os.path.join("receipts", photo_file_name)
+    photo.save(photo_path)
 
-    # receipt_info = get_receipt_info(photo_path, photo_file_name)
-    # receipt_name = receipt_info["vendor"]["name"]
+    receipt_info = get_receipt_info(photo_path, photo_file_name)
+    receipt_name = receipt_info["vendor"]["name"]
 
-    # location_type = get_location_type(receipt_name)
-    # location_name = get_location_name(receipt_name)
+    location_type = get_location_type(receipt_name)
+    location_name = get_location_name(receipt_name)
 
-    # information_manager.add_reciept(receipt_info["line_items"], location_name)
-    # feedback = feedback_generator.net_benefit(location_name, receipt_info["line_items"])
-    # print(feedback)
+    information_manager.add_reciept(receipt_info["line_items"], location_name)
+    feedback = feedback_generator.net_benefit(location_name, receipt_info["line_items"])
+    print(feedback)
 
-    # print(receipt_info)
-    # response = {
-    #     "status": "success!",
-    #     "locationType": location_type,
-    #     "locationName": location_name,
-    #     "actualTotal": receipt_info["total"],
-    #     "feedback": feedback,
-    #     "items": [item["description"].lower() for item in receipt_info["line_items"]]
-    # }
+    print(receipt_info)
+    response = {
+        "status": "success!",
+        "locationType": location_type,
+        "locationName": location_name,
+        "actualTotal": receipt_info["total"],
+        "feedback": feedback,
+        "items": [item["description"].lower() for item in receipt_info["line_items"]]
+    }
 
-    # print(response)
-    # return response
-    dummy_response = {'status': 'success!', 'locationType': 'tesco', 'locationName': 'Tesco Express Christs Lane', 'actualTotal': 11.4, 'feedback': [{'name': 'M&S Sidney St.', 'predictedPrice': 21.34, 'locationType': 'm&s'}, {'name': 'M&S Market Hill', 'predictedPrice': 21.34, 'locationType': 'm&s'}, {'name': 'Little Waitrose Fitzroy St.', 'predictedPrice': 21.34, 'locationType': 'waitrose'}, {'name': 'Ocado', 'predictedPrice': 21.34, 'locationType': 'ocado'}, {'name': "Sainsbury's Local St Andrews St.", 'predictedPrice': 31.24, 'locationType': 'sains'}, {'name': "Sainsbury's Sidney St.", 'predictedPrice': 31.24, 'locationType': 'sains'}], 'items': ['red bull', 'bag for life']}
-    return dummy_response
+    print(response)
+    return response
+    # dummy_response = {'status': 'success!', 'locationType': 'tesco', 'locationName': 'Tesco Express Christs Lane', 'actualTotal': 11.4, 'feedback': [{'name': 'M&S Sidney St.', 'predictedPrice': 21.34, 'locationType': 'm&s'}, {'name': 'M&S Market Hill', 'predictedPrice': 21.34, 'locationType': 'm&s'}, {'name': 'Little Waitrose Fitzroy St.', 'predictedPrice': 21.34, 'locationType': 'waitrose'}, {'name': 'Ocado', 'predictedPrice': 21.34, 'locationType': 'ocado'}, {'name': "Sainsbury's Local St Andrews St.", 'predictedPrice': 31.24, 'locationType': 'sains'}, {'name': "Sainsbury's Sidney St.", 'predictedPrice': 31.24, 'locationType': 'sains'}], 'items': ['red bull', 'bag for life']}
+    # return dummy_response
 
 
 def get_location_name(receipt_name):
