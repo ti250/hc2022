@@ -78,18 +78,18 @@
                         <div class="hist">
                             {pastShop.locationName}
                         </div>
+                        </div>
+                        <div class="date hist">
+                            Date:
+                            <br/>
+                            2022/1/22
+                        </div>
+                        <div class="costEstimate hist">
+                            Cost:
+                            <br/>
+                            £{pastShop.cost.toFixed(2)}
+                        </div>
                     </div>
-                    <div class="date hist">
-                        Date:
-                        <br/>
-                        2022/1/22
-                    </div>
-                    <div class="costEstimate hist">
-                        Cost:
-                        <br/>
-                        £{pastShop.cost.toFixed(2)}
-                    </div>
-                </div>
                 </div>
             </Card>
         </div>
