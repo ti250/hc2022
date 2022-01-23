@@ -120,6 +120,10 @@
         text-align: left-align;
     }
 
+    hr {
+        border: 1px solid lightgray;
+    }
+
     #content {
         padding: 20px;
     }

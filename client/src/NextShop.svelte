@@ -150,6 +150,10 @@
         text-align: left-align;
     }
 
+    hr {
+        border: 1px solid lightgray;
+    }
+
     #backbutton {
         padding: 0px;
         margin-bottom: 10px;
