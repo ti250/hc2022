@@ -120,7 +120,7 @@
                 {#if newNames.includes(item.name.toLowerCase())}
                     ? {item.name}
                 {:else}
-                    ・ {item.name}
+                    {item.name}
                 {/if}
             </div>
             <div class="quantityManager">

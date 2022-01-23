@@ -52,11 +52,11 @@
                 <div class="estimateCardContent">
                     <div class="supermarketDescription">
                         <img src={"/supermarketFavicons/" + topSuggestion.locationType + ".png"} class="supermarketFavicon"/>
-                        <div>
+                        <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
                             {topSuggestion.locationName}
                         </div>
                     </div>
-                    <div id="costEstimate">
+                    <div class="costEstimate">
                         Estimate:
                         <br/>
                         £{topSuggestion.estimatedPrice.toFixed(2)}
@@ -78,19 +78,21 @@
                     <div class="estimateCardContent">
                         <div class="supermarketDescription hist">
                         <img src={"/supermarketFavicons/" + pastShop.locationType + ".png"} class="supermarketFavicon"/>
-                        <div class="hist">
+                        <div class="hist" style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
                             {pastShop.locationName}
                         </div>
                         </div>
-                        <div class="date hist">
-                            Date:
-                            <br/>
-                            {pastShop.date}
-                        </div>
-                        <div class="costEstimate hist">
-                            Cost:
-                            <br/>
-                            £{pastShop.cost.toFixed(2)}
+                        <div class="accessoryView">
+                            <div class="date hist">
+                                Date:
+                                <br/>
+                                {pastShop.date}
+                            </div>
+                            <div class="costEstimate hist">
+                                Cost:
+                                <br/>
+                                £{pastShop.cost.toFixed(2)}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -129,10 +131,10 @@
     }
 
     .supermarketFavicon {
-        margin-right: 15px;
+        margin-right: 10px;
         border-radius: 5px;
         overflow: hidden;
-        width: 20px;
+        width: 20px !important;
         height: 20px;
     }
 
@@ -148,13 +150,25 @@
         flex-direction: row;
         /*justify-content: space-between;*/
         align-items: center;
+        max-width: 80%;
+    }
+
+    .supermarketDescription.hist {
+        max-width: 60%;
     }
 
     .date{
-    text-align: left;
-    position:absolute; 
-    left:195px; 
-    top:21px
+        text-align: left;
+        margin-right: 30px;
+        /*position:absolute;
+        left:195px;
+        top:21px*/
+    }
+
+    .accessoryView{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
     }
 
     .costEstimate{
