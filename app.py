@@ -4,10 +4,11 @@ import simplejson
 import os
 from server.process_supermarkets import PricesHelper
 from server.receipt import get_receipt_info
+from server.information_manager import InformationManager
 
 app = Flask(__name__)
-# After anything that writes to this, restart it
 prices_helper = PricesHelper("server/super.csv")
+information_manager = InformationManager(prices_helper.prices)
 photo_index = 0
 
 
@@ -49,8 +50,48 @@ def analyse_receipt():
     photo.save(photo_path)
 
     receipt_info = get_receipt_info(photo_path, photo_file_name)
+    receipt_name = receipt_info["vendor"]["name"]
+
+    location_type = get_location_type(receipt_name)
+    location_name = get_location_name(receipt_name)
+
+    information_manager.add_reciept(receipt_info["line_items"], location_name)
+
     print(receipt_info)
-    return {"status": "success!"}
+    response = {
+        "status": "success!",
+        "locationType": location_type,
+        "locationName": location_name
+    }
+
+    print(response)
+    return response
+
+
+def get_location_name(receipt_name):
+    translation_dict = {
+        "Sainsbury's": "Sainsbury's Local St Andrews St.",
+        "Tesco": "Tesco Express Christs Lane",
+        "Marks & Spencers": "M&S Sidney St.",
+        "Waitrose": "Little Waitrose Fitzroy St."
+    }
+    if receipt_name in translation_dict:
+        return translation_dict[receipt_name]
+    else:
+        return "Tesco Express Christs Lane"
+
+
+def get_location_type(receipt_name):
+    translation_dict = {
+        "Sainsbury's": "sains",
+        "Tesco": "tesco",
+        "Marks & Spencers": "m&s",
+        "Waitrose": "waitrose"
+    }
+    if receipt_name in translation_dict:
+        return translation_dict[receipt_name]
+    else:
+        return "tesco"
 
 
 if __name__ == "__main__":
