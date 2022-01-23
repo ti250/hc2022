@@ -1,10 +1,13 @@
 from flask import Flask, send_from_directory, request
 import json
 import simplejson
+import os
 from server.process_supermarkets import PricesHelper
+from server.receipt import get_receipt_info
 
 app = Flask(__name__)
 prices_helper = PricesHelper("server/super.csv")
+photo_index = 0
 
 
 # Path for our main Svelte page
@@ -33,6 +36,18 @@ def get_supermarket_recommendations():
     recommendations = prices_helper.get_recommendations(location, quantities)
     print(recommendations)
     return simplejson.dumps({"recommendations": recommendations}, ignore_nan=True)
+
+
+@app.route("/api/analyse_receipt", methods=["POST"])
+def analyse_receipt():
+    photo = request.files["photo"]
+    photo_file_name = f"receipt{photo_index % 10}.jpg"
+    photo_path = os.path.join("receipts", photo_file_name)
+    photo.save(photo_path)
+
+    receipt_info = get_receipt_info(photo_path, photo_file_name)
+    print(receipt_info)
+    return {"status": "success!"}
 
 
 if __name__ == "__main__":

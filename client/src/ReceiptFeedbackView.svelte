@@ -1,5 +1,6 @@
 <script>
     import { push } from 'svelte-spa-router';
+    import { scale } from 'svelte/transition';
 </script>
 
 <div id="content" in:scale>

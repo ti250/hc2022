@@ -31,4 +31,4 @@ def get_receipt_info(image_path, file_name):
 	files = {'file': ('file', open(image_path, 'rb'), 'image/jpeg')}
 	response = requests.post(url=process_file_url, headers=headers, data=payload, files=files)
 
-	return response
+	return response.json()
