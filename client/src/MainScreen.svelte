@@ -34,16 +34,18 @@
 <div id="content">
     <!-- Title element -->
     <h1>
-        My Shopping
+        My Shop List
     </h1>
 
+<hr>
+
     <!-- Next Shop -->
+    <h2>
+        My Next Shop
+    </h2>
     <div class="listElement" on:click={() => push('/nextShop')}>
-        <Card isFloating="true">
+        <Card isFloating="true"; backgroundColor="PeachPuff">
             <div class="cardContent">
-                <h2>
-                    My Next Shop
-                </h2>
                 <div class="estimateCardContent">
                     <div class="supermarketDescription">
                         <img src={"/supermarketFavicons/" + topSuggestion.locationType + ".png"} class="supermarketFavicon"/>
@@ -62,19 +64,27 @@
     </div>
 
     <br/>
+        <h2>
+            My Shop History
+        </h2>
 
     {#each pastShops as pastShop}
         <div class="listElement pastShop">
-            <Card backgroundColor="white">
+            <Card backgroundColor="WhiteSmoke">
                 <div class="cardContent">
                     <div class="estimateCardContent">
-                        <div class="supermarketDescription">
+                        <div class="supermarketDescription hist">
                         <img src={"/supermarketFavicons/" + pastShop.locationType + ".png"} class="supermarketFavicon"/>
-                        <div>
+                        <div class="hist">
                             {pastShop.locationName}
                         </div>
                     </div>
-                    <div id="costEstimate">
+                    <div class="date hist">
+                        Date:
+                        <br/>
+                        2022/1/22
+                    </div>
+                    <div class="costEstimate hist">
                         Cost:
                         <br/>
                         £{pastShop.cost.toFixed(2)}
@@ -92,6 +102,13 @@
 <style>
     h1 {
         margin-left: 8px;
+        text-align: left-align;
+        font-weight: 700;
+    }
+
+    h2 {
+        margin-left: 8px;
+        text-align: left-align;
     }
 
     #content {
@@ -99,7 +116,7 @@
     }
 
     .supermarketFavicon {
-        margin-right: 5px;
+        margin-right: 15px;
         border-radius: 5px;
         overflow: hidden;
         width: 20px;
@@ -120,18 +137,31 @@
         align-items: center;
     }
 
+    .date{
+    text-align: left;
+    position:absolute; 
+    left:195px; 
+    top:21px
+    }
+
+    .costEstimate{
+        text-align: right;
+    }
+
+    .hist{
+        color: Gray
+    }
+
+
     .floatingActionButton {
         position: fixed;
         bottom: 50px;
         right: 20px;
         z-index: 999;
-        background: lightgrey;
+        background: SandyBrown;
+        color: White;
         border-radius: 40px;
         padding: 20px;
-    }
-
-    #costEstimate{
-        text-align: right;
     }
 
     .cardContent {

@@ -83,7 +83,12 @@
         My Next Shop
     </h1>
 
+    <hr>
+
     <!-- Default suggestion -->
+    <h2>
+        Cheapest within 1 km
+    </h2>
     <div class="suggestion">
         <SuggestionsCell cellData={topSuggestion}/>
     </div>
@@ -98,9 +103,15 @@
         </div>
     {/if}
 
-    <button on:click={toggle} id="expandButton" class="decorated"> <span> {isExpanded ? "▲ Show Less" : "▼ Show More"} </span> </button>
+    <button on:click={toggle} id="expandButton" class="decorated"> <span> {isExpanded ? "▲ Show Less Store Options" : "▼ Show More Store Options"} </span> </button>
     <br/>
 
+    <br>
+    <br>
+
+    <h2>
+        Items in the basket
+    </h2>
     {#each $items as item (item.name)}
         <div class="itemCell">
             <div>
@@ -124,13 +135,19 @@
 
 <style>
     h1 {
-        margin-top: 0px;
-        margin-bottom: 30px;
+        margin-left: 8px;
+        text-align: left-align;
+        font-weight: 700;
+    }
+
+    h2 {
+    text-align: left-align;
     }
 
     #backbutton {
         padding: 0px;
         margin-bottom: 10px;
+        color: SandyBrown;
     }
 
     button {
@@ -147,6 +164,7 @@
         width: 100%;
         border: none;
         background: none;
+        color: SandyBrown;
     }
 
     .suggestion {
@@ -191,7 +209,8 @@
         bottom: 50px;
         right: 20px;
         z-index: 999;
-        background: lightgrey;
+        background: SandyBrown;
+        color: White;
         border-radius: 40px;
         padding: 20px;
     }
