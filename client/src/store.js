@@ -39,7 +39,29 @@ let defaultSuggestions = [
 //             isOnline: false,
 //         },]
 
+let defaultPastShops = [
+        {
+            locationName: "Sainsbury's Local",
+            cost: 12.05,
+            locationType: "sains",
+            date: "22/Jan"
+        },
+        {
+            locationName: "Tesco Express",
+            cost: 13.20,
+            locationType: "tesco",
+            date: "17/Jan"
+        },
+        {
+            locationName: "Waitrose",
+            cost: 15.20,
+            locationType: "waitrose",
+            date: "12/Jan"
+        },
+    ]
+
 export const suggestions = writable(JSON.parse(localStorage.getItem("suggestions")) || defaultSuggestions);
 export const items = writable(JSON.parse(localStorage.getItem("items")) || [{name: "Apples", quantity: 2}
 ]);
+export const pastShops = writable(JSON.parse(localStorage.getItem("pastShops")) || defaultPastShops);
 export const feedback = writable({});

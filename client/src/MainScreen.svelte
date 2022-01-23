@@ -1,7 +1,7 @@
 <script>
     import Card from "./Card.svelte";
     import { push } from 'svelte-spa-router';
-    import { suggestions } from './store';
+    import { suggestions, pastShops } from './store';
 
     let currentShop = {
         itemNames: ["Water", "Chicken"], // Names of things in the shopping list
@@ -12,26 +12,26 @@
 
     $: topSuggestion = ($suggestions)[0]
 
-    let pastShops = [
-        {
-            locationName: "Sainsbury's Local",
-            cost: 12.05,
-            locationType: "sains",
-            date: "23/Jan"
-        },
-        {
-            locationName: "Tesco Express",
-            cost: 13.20,
-            locationType: "tesco",
-            date: "17/Jan"
-        },
-        {
-            locationName: "Waitrose",
-            cost: 15.20,
-            locationType: "waitrose",
-            date: "12/Jan"
-        },
-    ]
+    // let pastShops = [
+    //     {
+    //         locationName: "Sainsbury's Local",
+    //         cost: 12.05,
+    //         locationType: "sains",
+    //         date: "23/Jan"
+    //     },
+    //     {
+    //         locationName: "Tesco Express",
+    //         cost: 13.20,
+    //         locationType: "tesco",
+    //         date: "17/Jan"
+    //     },
+    //     {
+    //         locationName: "Waitrose",
+    //         cost: 15.20,
+    //         locationType: "waitrose",
+    //         date: "12/Jan"
+    //     },
+    // ]
 </script>
 
 <div id="content">
@@ -71,7 +71,7 @@
             My Shop History
         </h2>
 
-    {#each pastShops as pastShop}
+    {#each $pastShops as pastShop}
         <div class="listElement pastShop">
             <Card backgroundColor="WhiteSmoke">
                 <div class="cardContent">

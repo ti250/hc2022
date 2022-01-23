@@ -68,12 +68,12 @@ def analyse_receipt():
     #     "locationName": location_name,
     #     "actualTotal": receipt_info["total"],
     #     "feedback": feedback,
+    #     "items": [item["description"].lower() for item in receipt_info["line_items"]]
     # }
 
     # print(response)
     # return response
-
-    dummy_response = {'status': 'success!', 'locationType': 'tesco', 'locationName': 'Tesco Express Christs Lane', 'actualTotal': 1.4, 'feedback': [{'name': 'M&S Sidney St.', 'predictedPrice': 1.3, 'locationType': 'm&s'}, {'name': 'M&S Market Hill', 'predictedPrice': 1.3, 'locationType': 'm&s'}, {'name': 'Little Waitrose Fitzroy St.', 'predictedPrice': 1.3, 'locationType': 'waitrose'}, {'name': 'Ocado', 'predictedPrice': 1.3, 'locationType': 'ocado'}, {'name': "Sainsbury's Local St Andrews St.", 'predictedPrice': 11.2, 'locationType': 'sains'}, {'name': "Sainsbury's Sidney St.", 'predictedPrice': 11.2, 'locationType': 'sains'}]}
+    dummy_response = {'status': 'success!', 'locationType': 'tesco', 'locationName': 'Tesco Express Christs Lane', 'actualTotal': 11.4, 'feedback': [{'name': 'M&S Sidney St.', 'predictedPrice': 21.34, 'locationType': 'm&s'}, {'name': 'M&S Market Hill', 'predictedPrice': 21.34, 'locationType': 'm&s'}, {'name': 'Little Waitrose Fitzroy St.', 'predictedPrice': 21.34, 'locationType': 'waitrose'}, {'name': 'Ocado', 'predictedPrice': 21.34, 'locationType': 'ocado'}, {'name': "Sainsbury's Local St Andrews St.", 'predictedPrice': 31.24, 'locationType': 'sains'}, {'name': "Sainsbury's Sidney St.", 'predictedPrice': 31.24, 'locationType': 'sains'}], 'items': ['red bull', 'bag for life']}
     return dummy_response
 
 
