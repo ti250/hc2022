@@ -6,6 +6,7 @@ from server.process_supermarkets import PricesHelper
 from server.receipt import get_receipt_info
 
 app = Flask(__name__)
+# After anything that writes to this, restart it
 prices_helper = PricesHelper("server/super.csv")
 photo_index = 0
 
@@ -40,8 +41,10 @@ def get_supermarket_recommendations():
 
 @app.route("/api/analyse_receipt", methods=["POST"])
 def analyse_receipt():
+    global photo_index
     photo = request.files["photo"]
-    photo_file_name = f"receipt{photo_index % 10}.jpg"
+    photo_file_name = f"received_receipt{photo_index % 10}.jpg"
+    photo_index += 1
     photo_path = os.path.join("receipts", photo_file_name)
     photo.save(photo_path)
 
