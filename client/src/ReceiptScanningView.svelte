@@ -2,7 +2,7 @@
 <script>
     import { push } from 'svelte-spa-router';
     import { scale } from 'svelte/transition';
-    import { feedback, pastShops } from './store';
+    import { feedback } from './store';
 
     let videoSource = null;
     let loading = false;
@@ -49,17 +49,6 @@
                 .then(jsonified => {
                     feedback.set(jsonified);
                     console.log(jsonified);
-                    let newOldShop = {
-                        locationName: jsonified.locationName,
-                        cost: jsonified.actualTotal,
-                        locationType: jsonified.locationType,
-                        date: "23/Jan"
-                    }
-                    let localPastShops = $pastShops;
-                    localPastShops.reverse();
-                    localPastShops.push(newOldShop);
-                    localPastShops.reverse();
-                    pastShops.set(localPastShops);
                 })
                 .then(() => {
                     push("/receiptFeedback");
@@ -100,8 +89,10 @@
 <style>
     
     h1 {
-        text-align: center;
         font-weight: 700;
+        position: absolute;
+        margin-left: 75px;
+        margin-top: 200px;
     }
 
     h2 {
