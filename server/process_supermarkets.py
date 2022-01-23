@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import math
 
 class PricesHelper():
 
@@ -18,7 +19,7 @@ class PricesHelper():
         for i in range(len(self.prices.index)):
             price = self.calculate_cost_of_items(items, self.prices.index[i])
             print(self.prices.index[i], type(self.prices.loc[self.prices.index[i], "Longitude"]))
-            if str(self.prices.loc[self.prices.index[i], "Longitude"]) == "nan":
+            if math.isnan(self.prices.loc[self.prices.index[i], "Longitude"]):
                 locations_list.append({
                     'locationName': self.prices.index[i],
                     'locationType': self.prices.loc[self.prices.index[i], "storeType"],

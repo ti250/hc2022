@@ -9,21 +9,7 @@ COPY ./client .
 # Compiles svelte app into vanilla JS
 RUN npm run build
 
-FROM python:3.8-alpine as build_server
-
-# Install dependencies
-RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
-RUN apk --update add --no-cache \
-    lapack-dev \
-    gcc \
-    freetype-dev
-RUN apk add --no-cache --virtual .build-deps \
-    gfortran \
-    musl-dev \
-    g++
-RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
-
-
+FROM amancevice/pandas:slim as build_server
 WORKDIR /app
 COPY requirements.txt .
 RUN python -m venv venv
@@ -31,13 +17,14 @@ RUN python -m venv venv
 ENV PATH="./venv/bin:$PATH"
 RUN pip install -r requirements.txt
 
-FROM python:3.8-alpine as executor
+FROM amancevice/pandas:slim as executor
 WORKDIR /app
 COPY --from=build_client /client/public ./client/public
 COPY --from=build_server /app/venv ./venv
 ENV PATH="./venv/bin:$PATH"
 COPY app.py .
 COPY server/ server
+COPY receipts/ receipts
 
 EXPOSE 80
 ENV FLASK_APP="app"

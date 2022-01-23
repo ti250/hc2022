@@ -5,6 +5,7 @@
 
     let videoSource = null;
     let loading = false;
+    const scratchCanvas = document.createElement('canvas');
 
     const getCamera = async () => {
         try {
@@ -25,18 +26,44 @@
 
     function takePhoto() {
         console.log("Take Photo Called");
-        push("/receiptFeedback");
+        scratchCanvas.width = videoSource.videoWidth;
+        scratchCanvas.height = videoSource.videoHeight;
+        const scratchContext = scratchCanvas.getContext('2d');
+        scratchContext.drawImage(videoSource, 0, 0, videoSource.videoWidth, videoSource.videoHeight);
+        scratchCanvas.toBlob(
+            function (jpegBlob) {
+                const formData = new FormData();
+                formData.append("photo", jpegBlob);
+
+                fetch("/api/analyse_receipt",
+                {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => {
+                    return response.json();
+                })
+                .then(jsonified => {
+                    console.log(jsonified);
+                })
+                .then(() => {
+                    push("/receiptFeedback");
+                })
+            }, 'image/jpeg'
+        )
     }
 </script>
 
 <div id="content" in:scale>
-    <button onclick="window.history.back()" id="backbutton">
-        &lt; Back
-    </button>
+    <video id="cameraView" bind:this={videoSource} playsinline />
+    <div>
+        <button onclick="window.history.back()" id="backbutton">
+            &lt; Back
+        </button>
+    </div>
     {#if loading}
         <h1>Loading...</h1>
     {/if}
-    <video id="cameraView" bind:this={videoSource} playsinline />
     <div class="photo-button">
         <button on:click={takePhoto} class="photo-button">
         </button>
@@ -52,12 +79,14 @@
     }
 
     #backbutton {
+        position:  absolute;
         border-color: white;
         padding: 20px;
         margin: 20px;
         color: SandyBrown;
         border-radius: 40px;
         padding: 20px;
+        z-index: 100;
     }
 
     #content {
