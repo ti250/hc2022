@@ -77,7 +77,7 @@
         </button>
     </div>
     {#if loading}
-        <h1>Loading Camera...</h1>
+        <h1 class="loadingView">Loading Camera...</h1>
     {/if}
     <div class="photo-button">
         <button on:click={takePhoto} class="photo-button">
@@ -98,8 +98,13 @@
 </div>
 
 <style>
-    
+
     h1 {
+        font-weight: 700;
+        text-align: center;
+    }
+
+    h1.loadingView {
         font-weight: 700;
         position: absolute;
         margin-left: 55px;
