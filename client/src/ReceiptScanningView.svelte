@@ -5,6 +5,7 @@
 
     let videoSource = null;
     let loading = false;
+    let processing = false;
     const scratchCanvas = document.createElement('canvas');
 
     const getCamera = async () => {
@@ -26,6 +27,7 @@
 
     function takePhoto() {
         console.log("Take Photo Called");
+        processing = true;
         scratchCanvas.width = videoSource.videoWidth;
         scratchCanvas.height = videoSource.videoHeight;
         const scratchContext = scratchCanvas.getContext('2d');
@@ -62,13 +64,24 @@
         </button>
     </div>
     {#if loading}
-        <h1>Loading...</h1>
+        <h1>Loading Camera...</h1>
     {/if}
     <div class="photo-button">
         <button on:click={takePhoto} class="photo-button">
         </button>
     </div>
-
+    {#if processing}
+    <div id="processingOverlay">
+        <div id="processingContent">
+            <h1>
+                Processing...
+            </h1>
+            <h2>
+                Our helper robots are working real hard on this one, hang on tight!
+            </h2>
+        </div>
+    </div>
+    {/if}
 </div>
 
 <style>
@@ -76,6 +89,10 @@
     h1 {
         text-align: center;
         font-weight: 700;
+    }
+
+    h2 {
+        text-align: center;
     }
 
     #backbutton {
@@ -107,6 +124,28 @@
         margin-right: -50%;
         transform: translate(-50%, -50%);
         border-radius: 20px;
+    }
+
+    #processingOverlay {
+        background-color: rgba(0, 0, 0, 0.7);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        z-index: 10000000;
+    }
+
+    #processingContent {
+        background-color: rgba(0, 0, 0, 0.7);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        z-index: 10000001;
     }
 
     .photo-button {
