@@ -1,18 +1,31 @@
 <script>
     import { push } from 'svelte-spa-router';
     import { scale } from 'svelte/transition';
+    import { feedback } from './store';
 </script>
 
 <div id="content" in:scale>
     <h1>
         Thank You for Your Contribution!
     </h1>
+    You spent £{$feedback.actualTotal.toFixed(2)} at
+    <img src={"/supermarketFavicons/" + $feedback.locationType + ".png"} class="supermarketFavicon"/> {$feedback.locationName}
     <h2>
-        Our robot helpers are updating our database for the next user!
+        Here's some estimates of what you would have spent at other places:
     </h2>
-        <button on:click={() => push('/')} id="backbutton">
-            &lt; Back
-        </button>
+    {#each $feedback.feedback as feedbackItem}
+        <div class="feedbackItem">
+            <div>
+                <img src={"/supermarketFavicons/" + feedbackItem.locationType + ".png"} class="supermarketFavicon"/> {feedbackItem.name}
+            </div>
+            <div>
+                £{feedbackItem.predictedPrice.toFixed(2)}
+            </div>
+        </div>
+    {/each}
+    <button on:click={() => push('/')} id="backbutton">
+        &lt; Back
+    </button>
 </div>
 
 <style>
@@ -26,6 +39,21 @@
     margin-top: 100px;
     text-align: center;
     font-weight: 700;
+    }
+
+    .supermarketFavicon {
+        margin-right: 15px;
+        border-radius: 5px;
+        overflow: hidden;
+        width: 20px;
+        height: 20px;
+    }
+
+    .feedbackItem {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
     }
 
     #content {

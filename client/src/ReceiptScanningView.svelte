@@ -2,6 +2,7 @@
 <script>
     import { push } from 'svelte-spa-router';
     import { scale } from 'svelte/transition';
+    import { feedback } from './store';
 
     let videoSource = null;
     let loading = false;
@@ -46,6 +47,7 @@
                     return response.json();
                 })
                 .then(jsonified => {
+                    feedback.set(jsonified);
                     console.log(jsonified);
                 })
                 .then(() => {
@@ -127,7 +129,7 @@
     }
 
     #processingOverlay {
-        background-color: rgba(0, 0, 0, 0.0);
+        background-color: rgba(0, 0, 0, 0.7);
         width: 100%;
         height: 100%;
         position: absolute;
@@ -139,6 +141,7 @@
     }
 
     #processingContent {
+        background-color: rgba(0, 0, 0, 0.0);
         position: absolute;
         top: 50%;
         left: 50%;

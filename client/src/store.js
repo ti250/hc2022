@@ -42,3 +42,4 @@ let defaultSuggestions = [
 export const suggestions = writable(JSON.parse(localStorage.getItem("suggestions")) || defaultSuggestions);
 export const items = writable(JSON.parse(localStorage.getItem("items")) || [{name: "Apples", quantity: 2}
 ]);
+export const feedback = writable({});

@@ -5,10 +5,12 @@ import os
 from server.process_supermarkets import PricesHelper
 from server.receipt import get_receipt_info
 from server.information_manager import InformationManager
+from server.feedback_generator import FeedbackGenerator
 
 app = Flask(__name__)
 prices_helper = PricesHelper("server/super.csv")
 information_manager = InformationManager(prices_helper.prices)
+feedback_generator = FeedbackGenerator(information_manager)
 photo_index = 0
 
 
@@ -42,30 +44,37 @@ def get_supermarket_recommendations():
 
 @app.route("/api/analyse_receipt", methods=["POST"])
 def analyse_receipt():
-    global photo_index
-    photo = request.files["photo"]
-    photo_file_name = f"received_receipt{photo_index % 10}.jpg"
-    photo_index += 1
-    photo_path = os.path.join("receipts", photo_file_name)
-    photo.save(photo_path)
+    # global photo_index
+    # photo = request.files["photo"]
+    # photo_file_name = f"received_receipt{photo_index % 10}.jpg"
+    # photo_index += 1
+    # photo_path = os.path.join("receipts", photo_file_name)
+    # photo.save(photo_path)
 
-    receipt_info = get_receipt_info(photo_path, photo_file_name)
-    receipt_name = receipt_info["vendor"]["name"]
+    # receipt_info = get_receipt_info(photo_path, photo_file_name)
+    # receipt_name = receipt_info["vendor"]["name"]
 
-    location_type = get_location_type(receipt_name)
-    location_name = get_location_name(receipt_name)
+    # location_type = get_location_type(receipt_name)
+    # location_name = get_location_name(receipt_name)
 
-    information_manager.add_reciept(receipt_info["line_items"], location_name)
+    # information_manager.add_reciept(receipt_info["line_items"], location_name)
+    # feedback = feedback_generator.net_benefit(location_name, receipt_info["line_items"])
+    # print(feedback)
 
-    print(receipt_info)
-    response = {
-        "status": "success!",
-        "locationType": location_type,
-        "locationName": location_name
-    }
+    # print(receipt_info)
+    # response = {
+    #     "status": "success!",
+    #     "locationType": location_type,
+    #     "locationName": location_name,
+    #     "actualTotal": receipt_info["total"],
+    #     "feedback": feedback,
+    # }
 
-    print(response)
-    return response
+    # print(response)
+    # return response
+
+    dummy_response = {'status': 'success!', 'locationType': 'tesco', 'locationName': 'Tesco Express Christs Lane', 'actualTotal': 1.4, 'feedback': [{'name': 'M&S Sidney St.', 'predictedPrice': 1.3, 'locationType': 'm&s'}, {'name': 'M&S Market Hill', 'predictedPrice': 1.3, 'locationType': 'm&s'}, {'name': 'Little Waitrose Fitzroy St.', 'predictedPrice': 1.3, 'locationType': 'waitrose'}, {'name': 'Ocado', 'predictedPrice': 1.3, 'locationType': 'ocado'}, {'name': "Sainsbury's Local St Andrews St.", 'predictedPrice': 11.2, 'locationType': 'sains'}, {'name': "Sainsbury's Sidney St.", 'predictedPrice': 11.2, 'locationType': 'sains'}]}
+    return dummy_response
 
 
 def get_location_name(receipt_name):
