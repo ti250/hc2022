@@ -27,7 +27,7 @@
     </h3>
     {#each $feedback.feedback as feedbackItem}
             <div class="feedbackItem">
-                <div>
+                <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
                     <img src={"/supermarketFavicons/" + feedbackItem.locationType + ".png"} class="supermarketFavicon"/> {feedbackItem.name}
                 </div>
                 <div>

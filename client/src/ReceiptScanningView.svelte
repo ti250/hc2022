@@ -91,7 +91,7 @@
     h1 {
         font-weight: 700;
         position: absolute;
-        margin-left: 75px;
+        margin-left: 55px;
         margin-top: 200px;
     }
 

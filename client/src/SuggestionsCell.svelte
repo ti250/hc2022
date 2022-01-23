@@ -13,7 +13,7 @@
     <div class="upperRow">
         <div class="supermarketDescription">
             <img src={"/supermarketFavicons/" + cellData.locationType + ".png"} class="supermarketFavicon"/>
-            <div>
+            <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
                 {cellData.locationName}
             </div>
         </div>
@@ -24,7 +24,7 @@
         {/if}
     </div>
     <div style="text-align: right;">
-        Estimate: £ {cellData.estimatedPrice.toFixed(2)}
+        <strong>Estimate: £ {cellData.estimatedPrice.toFixed(2)}</strong>
     </div>
 </div>
 

@@ -89,7 +89,7 @@
 
     <!-- Default suggestion -->
     <h2>
-        Cheapest within 1 km
+        Cheapest in your vicinity
     </h2>
     <div class="suggestion">
         <SuggestionsCell cellData={topSuggestion}/>
@@ -184,7 +184,9 @@
     }
 
     .suggestion {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 
     .nextItemInput {
