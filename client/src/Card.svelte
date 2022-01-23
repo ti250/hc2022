@@ -12,7 +12,7 @@
     .card{
         border-radius: 20px;
 
-        border-color: lightgray;
+        border-color: rgba(0, 0, 0, 0);
         border-style: solid;
         border-width: 1px;
 

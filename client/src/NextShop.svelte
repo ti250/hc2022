@@ -147,7 +147,7 @@
     }
 
     h2 {
-    text-align: left-align;
+        text-align: left-align;
     }
 
     #backbutton {

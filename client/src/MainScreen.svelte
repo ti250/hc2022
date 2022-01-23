@@ -47,7 +47,7 @@
         My Next Shop
     </h2>
     <div class="listElement" on:click={() => push('/nextShop')}>
-        <Card isFloating="true"; backgroundColor="PeachPuff">
+        <Card isFloating="true" backgroundColor="PeachPuff">
             <div class="cardContent">
                 <div class="estimateCardContent">
                     <div class="supermarketDescription">
@@ -170,6 +170,7 @@
         background: SandyBrown;
         color: White;
         border-radius: 40px;
+        border-color: rgba(0, 0, 0, 0);
         padding: 20px;
     }
 
