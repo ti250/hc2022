@@ -128,6 +128,12 @@
     {/each}
     <br/>
     <input class="nextItemInput" placeholder="Add an Item" on:keydown={onItemNameKeyDown} bind:value={nextItemName}>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
 </div>
 <button class="floatingActionButton" on:click={() => push('/scanReceipt')}>
     I did a shop!

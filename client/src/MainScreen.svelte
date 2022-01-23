@@ -94,6 +94,12 @@
             </Card>
         </div>
     {/each}
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
     <button class="floatingActionButton" on:click={() => push('/scanReceipt')}>
         I did a shop!
     </button>
