@@ -5,6 +5,7 @@
     import { suggestions, items } from './store';
 
     let isExpanded = false;
+    let newNames = [];
 
     function toggle(){
         isExpanded = !isExpanded;
@@ -69,6 +70,7 @@
         console.log(newData);
         suggestions.set(newData.recommendations);
         localStorage.setItem("suggestions", JSON.stringify($suggestions));
+        newNames = newData.newNames;
     }
 
     let nextItemName="";
@@ -115,7 +117,11 @@
     {#each $items as item (item.name)}
         <div class="itemCell">
             <div>
-                ・{item.name}
+                {#if newNames.includes(item.name.toLowerCase())}
+                    ? {item.name}
+                {:else}
+                    ・ {item.name}
+                {/if}
             </div>
             <div class="quantityManager">
                 {item.quantity}

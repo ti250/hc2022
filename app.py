@@ -37,9 +37,9 @@ def get_supermarket_recommendations():
     quantities = given_data["quantities"]
     quantities = [{"name": quantity["name"].lower(), "quantity": quantity["quantity"]} for quantity in quantities]
     location = [given_data["location"]]
-    recommendations = prices_helper.get_recommendations(location, quantities)
+    recommendations, new_names = prices_helper.get_recommendations(location, quantities)
     print(recommendations)
-    return simplejson.dumps({"recommendations": recommendations}, ignore_nan=True)
+    return simplejson.dumps({"newNames": new_names, "recommendations": recommendations}, ignore_nan=True)
 
 
 @app.route("/api/analyse_receipt", methods=["POST"])
