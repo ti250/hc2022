@@ -2,37 +2,44 @@
     import { push } from 'svelte-spa-router';
 </script>
 
-<div id="content">
+<div id="content" in:scale>
     <h1>
-        Thank You!
+        Thank You for Your Contribution!
     </h1>
-    <h1>
-        Our robot helpers are busy updating our database....
-    </h1>
-    <div id="backButtonWrapper">
-        <button on:click={() => push('/')} id="backButton">Back</button>
-    </div>
+    <h2>
+        Our robot helpers are updating our database for the next user!
+    </h2>
+        <button on:click={() => push('/')} id="backbutton">
+            &lt; Back
+        </button>
 </div>
 
 <style>
+    
+    h1 {
+    text-align: center;
+    font-weight: 700;
+    }
+
+    h2 {
+    margin-top: 100px;
+    text-align: center;
+    font-weight: 700;
+    }
+
     #content {
         margin: 30px;
     }
 
     #backbutton {
-        width: 100%;
-    }
-
-    #backButtonWrapper {
-        position: absolute;
-        bottom: 100px;
-        left: 0px;
-        width: 100%;
+        position: fixed;
+        bottom: 50px;
+        left: 20px;
         z-index: 999;
-
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
+        background: SandyBrown;
+        color: White;
+        border-radius: 40px;
+        padding: 20px;
     }
+
 </style>

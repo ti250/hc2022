@@ -37,16 +37,27 @@
         <h1>Loading...</h1>
     {/if}
     <video id="cameraView" bind:this={videoSource} playsinline />
-    <div id="cameraShutterWrapper">
-        <button on:click={takePhoto} id="cameraShutter">Take Receipt</button>
+    <div class="photo-button">
+        <button on:click={takePhoto} class="photo-button">
+        </button>
     </div>
+
 </div>
 
 <style>
+    
+    h1 {
+        text-align: center;
+        font-weight: 700;
+    }
 
     #backbutton {
+        border-color: white;
         padding: 20px;
         margin: 20px;
+        color: SandyBrown;
+        border-radius: 40px;
+        padding: 20px;
     }
 
     #content {
@@ -69,16 +80,15 @@
         border-radius: 20px;
     }
 
-    #cameraShutterWrapper {
-        position: absolute;
-        bottom: 50px;
-        left: 0px;
-        width: 100%;
-        z-index: 999;
-
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
+    .photo-button {
+      width: 100px;
+      height: 100px;
+      top: 85%;
+      left: 50%;
+      margin-top: -50px;
+      margin-left: -50px;
+      position: absolute;
+      border-radius: 100%;
     }
+
 </style>
